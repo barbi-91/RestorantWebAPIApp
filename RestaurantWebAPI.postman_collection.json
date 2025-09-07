@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "effb4088-ac22-4c95-baa9-73b4abe3b739",
+		"name": "RestaurantWebAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27208749"
+	},
+	"item": [
+		{
+			"name": "Get all orders (2 - \"Pregledavati postojeće narudžbe\")",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7056/api/order",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7056",
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new order (1 - \"Dodavati nove narudžbe\")",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"CustomerName\": \"Lana Ivić\",\r\n  \"PaymentMethod\": \"Cash\",\r\n  \"DeliveryAddress\": \"Ulica 4, Zagreb\",\r\n  \"ContactNumber\": \"0911244567\",\r\n  \"Note\": \"Flat 4\",\r\n  \"Currency\": \"Eur\",\r\n  \"Items\": [\r\n    {\r\n      \"ProductName\": \"Egg Burger\",\r\n      \"Quantity\": 1,\r\n      \"Price\": 5.50\r\n    },\r\n    {\r\n      \"ProductName\": \"Coca-cola\",\r\n      \"Quantity\": 1,\r\n      \"Price\": 2.50\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7056/api/order",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7056",
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change order status by id (3 - \"Mijenjati status narudžbi\")",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "3",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7056/api/order/1/status",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7056",
+					"path": [
+						"api",
+						"order",
+						"1",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Total Amount by order id (4 - \"Izračunavati ukupni iznos računa \")",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:7056/api/order/1/total",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7056",
+					"path": [
+						"api",
+						"order",
+						"1",
+						"total"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sort orders by Total Amount (5 - \"Sortirati narudžbe po ukupnom iznosu\")",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:7056/api/order/sorted-by-total",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7056",
+					"path": [
+						"api",
+						"order",
+						"sorted-by-total"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
