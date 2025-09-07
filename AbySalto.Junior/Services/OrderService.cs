@@ -36,9 +36,11 @@ namespace AbySalto.Junior.Services
             return createdOrderDto;
         }
 
-        public Task<IEnumerable<OrderDto>> GetAllOrdersAsync()
+        public async Task<IEnumerable<OrderDto>> GetAllOrdersAsync()
         {
-            throw new NotImplementedException();
+            var orders = await _repository.GetAllOrdersAsync();
+            var ordersDto = _mapper.Map<IEnumerable<OrderDto>>(orders);
+            return ordersDto;
         }
 
         public Task<IEnumerable<OrderDto>> GetOrdersSortByTotalAmount()

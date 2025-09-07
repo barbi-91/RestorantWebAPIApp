@@ -38,5 +38,13 @@ namespace AbySalto.Junior.Controllers
                 return BadRequest(new { errorMessage = "Error has occured!" });
             }
         }
+
+        // Get all orders (2 - "Pregledavati postojeće narudžbe")
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetAllOrdersAsync()
+        {
+            var orderDtos = await _orderService.GetAllOrdersAsync();
+            return Ok(orderDtos);
+        }
     }
 }

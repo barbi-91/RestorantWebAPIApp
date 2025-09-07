@@ -1,5 +1,6 @@
 ﻿using AbySalto.Junior.Infrastructure.Database;
 using AbySalto.Junior.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AbySalto.Junior.Repositories
 {
@@ -23,9 +24,12 @@ namespace AbySalto.Junior.Repositories
         }
 
         // Get all orders (2 - "Pregledavati postojeće narudžbe")
-        public Task<IEnumerable<Order>> GetAllOrdersAsync()
+        public async Task<IEnumerable<Order>> GetAllOrdersAsync()
         {
-            throw new NotImplementedException();
+            var orders = await _context.Orders
+                .Include(o => o.Items)
+                .ToListAsync();
+            return orders;
         }
 
         // Change order status by id (3 - "Mijenjati status narudžbi")
