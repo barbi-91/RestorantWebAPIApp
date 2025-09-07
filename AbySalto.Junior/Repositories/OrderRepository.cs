@@ -26,7 +26,7 @@ namespace AbySalto.Junior.Repositories
         // Get all orders (2 - "Pregledavati postojeće narudžbe")
         public async Task<IEnumerable<Order>> GetAllOrdersAsync()
         {
-            var orders = await _context.Orders
+            List<Order> orders = await _context.Orders
                 .Include(o => o.Items)
                 .ToListAsync();
             return orders;
@@ -35,9 +35,7 @@ namespace AbySalto.Junior.Repositories
         // Change order status by id (3 - "Mijenjati status narudžbi")
         public async Task<Order?> UpdateOrderStatusAsync(int orderId, OrderStatus status)
         {
-            var orderById = await _context.Orders
-                .Include(o => o.Items)
-                .SingleOrDefaultAsync(o => o.Id == orderId);
+            Order? orderById = await GetOrderByIdAsync(orderId);
             if (orderById == null)
             {
                 return null;
@@ -47,14 +45,20 @@ namespace AbySalto.Junior.Repositories
 
             return orderById;
         }
+
+        // Sort orders by Total Amount (5 - "Sortirati narudžbe po ukupnom iznosu")
         public Task<IEnumerable<Order>> GetOrdersSortByTotalAmount()
         {
             throw new NotImplementedException();
         }
 
-        public Task<decimal> GetTotalAmountAsync(int orderId)
+        // Helper method get single method by id
+        public async Task<Order?> GetOrderByIdAsync(int orderId)
         {
-            throw new NotImplementedException();
+            Order? orderById = await _context.Orders
+                .Include(o => o.Items)
+                .SingleOrDefaultAsync(o => o.Id == orderId);
+            return orderById;
         }
     }
 }

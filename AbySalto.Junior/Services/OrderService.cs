@@ -16,6 +16,7 @@ namespace AbySalto.Junior.Services
             _mapper = mapper;
         }
 
+        // Add new order (1 - "Dodavati nove narudžbe")
         public async Task<OrderDto> CreateOrderAsync(CreateOrderDto orderDto)
         {
             // Map DTO to entity
@@ -36,6 +37,7 @@ namespace AbySalto.Junior.Services
             return createdOrderDto;
         }
 
+        // Get all orders (2 - "Pregledavati postojeće narudžbe")
         public async Task<IEnumerable<OrderDto>> GetAllOrdersAsync()
         {
             var orders = await _repository.GetAllOrdersAsync();
@@ -43,6 +45,7 @@ namespace AbySalto.Junior.Services
             return ordersDto;
         }
 
+        // Change order status by id (3 - "Mijenjati status narudžbi")
         public async Task<OrderDto?> UpdateOrderStatusAsync(int orderId, OrderStatus status)
         {
             var order = await _repository.UpdateOrderStatusAsync(orderId, status);
@@ -50,12 +53,20 @@ namespace AbySalto.Junior.Services
             return orderDto;
         }
 
-        public Task<IEnumerable<OrderDto>> GetOrdersSortByTotalAmount()
+        // Get Total Amount by order id (4 - "Izračunavati ukupni iznos računa ")
+        public async Task<decimal> GetTotalAmountAsync(int orderId)
         {
-            throw new NotImplementedException();
+            // Get order by id
+            Order? order = await _repository.GetOrderByIdAsync(orderId);
+            if (order == null)
+            {
+                return 0m;
+            }
+            return order.TotalAmount;
         }
 
-        public Task<decimal> GetTotalAmountAsync(int orderId)
+        // Sort orders by Total Amount (5 - "Sortirati narudžbe po ukupnom iznosu")
+        public Task<IEnumerable<OrderDto>> GetOrdersSortByTotalAmount()
         {
             throw new NotImplementedException();
         }

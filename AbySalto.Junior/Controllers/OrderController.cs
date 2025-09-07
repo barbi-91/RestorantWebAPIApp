@@ -68,5 +68,18 @@ namespace AbySalto.Junior.Controllers
                 return BadRequest(new { errorMessage = "An error occurred while updating order status." });
             }
         }
+
+        // Get Total Amount by order id (4 - "Izračunavati ukupni iznos računa ")
+        [HttpGet("{orderId}/total")]
+        // api/order/3/total
+        public async Task<ActionResult<decimal>> GetTotalAmountAsync(int orderId)
+        {
+            decimal total = await _orderService.GetTotalAmountAsync(orderId);
+            if (total == 0m)
+            {
+                return BadRequest(new { errorMessage = "Order with orderId not found or sum is 0!" });
+            }
+            return Ok(total);
+        }
     }
 }
