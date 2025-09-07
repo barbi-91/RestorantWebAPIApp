@@ -33,9 +33,19 @@ namespace AbySalto.Junior.Repositories
         }
 
         // Change order status by id (3 - "Mijenjati status narudžbi")
-        public Task<Order?> UpdateOrderStatusAsync(int orderId, OrderStatus status)
+        public async Task<Order?> UpdateOrderStatusAsync(int orderId, OrderStatus status)
         {
-            throw new NotImplementedException();
+            var orderById = await _context.Orders
+                .Include(o => o.Items)
+                .SingleOrDefaultAsync(o => o.Id == orderId);
+            if (orderById == null)
+            {
+                return null;
+            }
+            orderById.Status = status;
+            await _context.SaveChangesAsync();
+
+            return orderById;
         }
         public Task<IEnumerable<Order>> GetOrdersSortByTotalAmount()
         {
