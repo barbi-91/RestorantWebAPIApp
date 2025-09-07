@@ -1,5 +1,8 @@
 
 using AbySalto.Junior.Infrastructure.Database;
+using AbySalto.Junior.Mapping;
+using AbySalto.Junior.Repositories;
+using AbySalto.Junior.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -13,6 +16,11 @@ namespace AbySalto.Junior
 
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
+            // AutoMapper configuration
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            // Dependency Injection for repositories and services
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
@@ -35,10 +43,15 @@ namespace AbySalto.Junior
                     options.RoutePrefix = string.Empty;
                 });
             }
+            // Handles exceptions globally
+            app.UseExceptionHandler("/error");
 
             app.UseHttpsRedirection();
-            app.UseAuthorization();
 
+            // Not using authentication/authorization for testing purposes
+            //app.UseAuthorization(); 
+
+            app.UseRouting();
 
             app.MapControllers();
             app.Run();
