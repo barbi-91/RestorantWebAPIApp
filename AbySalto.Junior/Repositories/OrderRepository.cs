@@ -46,13 +46,7 @@ namespace AbySalto.Junior.Repositories
             return orderById;
         }
 
-        // Sort orders by Total Amount (5 - "Sortirati narudžbe po ukupnom iznosu")
-        public Task<IEnumerable<Order>> GetOrdersSortByTotalAmount()
-        {
-            throw new NotImplementedException();
-        }
-
-        // Helper method get single method by id
+        // Helper method get single method by Id
         public async Task<Order?> GetOrderByIdAsync(int orderId)
         {
             Order? orderById = await _context.Orders

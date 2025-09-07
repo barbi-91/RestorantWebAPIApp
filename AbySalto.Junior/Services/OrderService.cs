@@ -66,9 +66,12 @@ namespace AbySalto.Junior.Services
         }
 
         // Sort orders by Total Amount (5 - "Sortirati narudžbe po ukupnom iznosu")
-        public Task<IEnumerable<OrderDto>> GetOrdersSortByTotalAmount()
+        public async Task<IEnumerable<OrderDto>> GetOrdersSortByTotalAmount()
         {
-            throw new NotImplementedException();
+            IEnumerable<Order> orders = await _repository.GetAllOrdersAsync();
+            List<Order> sortedOrders = orders.OrderByDescending(o => o.TotalAmount).ToList();
+            var sortedOrdersDto = _mapper.Map<IEnumerable<OrderDto>>(sortedOrders);
+            return sortedOrdersDto;
         }
     }
 }

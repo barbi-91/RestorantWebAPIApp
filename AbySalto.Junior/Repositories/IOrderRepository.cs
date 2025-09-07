@@ -13,9 +13,6 @@ namespace AbySalto.Junior.Repositories
         // Change order status by id (3 - "Mijenjati status narudžbi")
         Task<Order?> UpdateOrderStatusAsync(int orderId, OrderStatus status);
 
-        // Sort orders by Total Amount (5 - "Sortirati narudžbe po ukupnom iznosu")
-        Task<IEnumerable<Order>> GetOrdersSortByTotalAmount();
-
         // Helper method get single method by id
         Task<Order?> GetOrderByIdAsync(int orderId);
     }

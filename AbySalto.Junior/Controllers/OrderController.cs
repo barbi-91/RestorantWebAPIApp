@@ -81,5 +81,14 @@ namespace AbySalto.Junior.Controllers
             }
             return Ok(total);
         }
+
+        // Sort orders by Total Amount (5 - "Sortirati narudžbe po ukupnom iznosu")
+        [HttpGet("sorted-by-total")]
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersSortByTotalAmount()
+        {
+            var ordersSortedByTotalDtos = await _orderService.GetOrdersSortByTotalAmount();
+            return Ok(ordersSortedByTotalDtos);
+        }
     }
+
 }
